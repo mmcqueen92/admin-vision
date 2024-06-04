@@ -1,0 +1,2040 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "admin-vision-server",
+        "version": "0.0.1",
+        "description": "admin vision",
+        "contact": {
+            "name": "Malcolm McQueen",
+            "email": "110631738+mmcqueen92@users.noreply.github.com"
+        }
+    },
+    "paths": {
+        "/items/count": {
+            "get": {
+                "x-controller-name": "ItemController",
+                "x-operation-name": "count",
+                "tags": [
+                    "ItemController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item model count",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loopback.Count"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "where",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "items.WhereFilter",
+                                    "additionalProperties": true,
+                                    "x-typescript-type": "@loopback/repository#Where<Item>"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "ItemController.count"
+            }
+        },
+        "/items/{id}": {
+            "put": {
+                "x-controller-name": "ItemController",
+                "x-operation-name": "replaceById",
+                "tags": [
+                    "ItemController"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Item PUT success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Item"
+                            }
+                        }
+                    },
+                    "x-parameter-index": 1
+                },
+                "operationId": "ItemController.replaceById"
+            },
+            "patch": {
+                "x-controller-name": "ItemController",
+                "x-operation-name": "updateById",
+                "tags": [
+                    "ItemController"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Item PATCH success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ItemPartial"
+                            }
+                        }
+                    },
+                    "x-parameter-index": 1
+                },
+                "operationId": "ItemController.updateById"
+            },
+            "get": {
+                "x-controller-name": "ItemController",
+                "x-operation-name": "findById",
+                "tags": [
+                    "ItemController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item model instance",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ItemWithRelations"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/items.Filter"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "ItemController.findById"
+            },
+            "delete": {
+                "x-controller-name": "ItemController",
+                "x-operation-name": "deleteById",
+                "tags": [
+                    "ItemController"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Item DELETE success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "ItemController.deleteById"
+            }
+        },
+        "/items": {
+            "post": {
+                "x-controller-name": "ItemController",
+                "x-operation-name": "create",
+                "tags": [
+                    "ItemController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item model instance",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Item"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewItem"
+                            }
+                        }
+                    }
+                },
+                "operationId": "ItemController.create"
+            },
+            "patch": {
+                "x-controller-name": "ItemController",
+                "x-operation-name": "updateAll",
+                "tags": [
+                    "ItemController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item PATCH success count",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loopback.Count"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "where",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "items.WhereFilter",
+                                    "additionalProperties": true,
+                                    "x-typescript-type": "@loopback/repository#Where<Item>"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ItemPartial"
+                            }
+                        }
+                    }
+                },
+                "operationId": "ItemController.updateAll"
+            },
+            "get": {
+                "x-controller-name": "ItemController",
+                "x-operation-name": "find",
+                "tags": [
+                    "ItemController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of Item model instances",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ItemWithRelations"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/items.Filter1"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "ItemController.find"
+            }
+        },
+        "/ping": {
+            "get": {
+                "x-controller-name": "PingController",
+                "x-operation-name": "ping",
+                "tags": [
+                    "PingController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ping Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PingResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "PingController.ping"
+            }
+        },
+        "/transactions/count": {
+            "get": {
+                "x-controller-name": "TransactionController",
+                "x-operation-name": "count",
+                "tags": [
+                    "TransactionController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transaction model count",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loopback.Count"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "where",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "transactions.WhereFilter",
+                                    "additionalProperties": true,
+                                    "x-typescript-type": "@loopback/repository#Where<Transaction>"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "TransactionController.count"
+            }
+        },
+        "/transactions/{id}": {
+            "put": {
+                "x-controller-name": "TransactionController",
+                "x-operation-name": "replaceById",
+                "tags": [
+                    "TransactionController"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Transaction PUT success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Transaction"
+                            }
+                        }
+                    },
+                    "x-parameter-index": 1
+                },
+                "operationId": "TransactionController.replaceById"
+            },
+            "patch": {
+                "x-controller-name": "TransactionController",
+                "x-operation-name": "updateById",
+                "tags": [
+                    "TransactionController"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Transaction PATCH success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TransactionPartial"
+                            }
+                        }
+                    },
+                    "x-parameter-index": 1
+                },
+                "operationId": "TransactionController.updateById"
+            },
+            "get": {
+                "x-controller-name": "TransactionController",
+                "x-operation-name": "findById",
+                "tags": [
+                    "TransactionController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transaction model instance",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionWithRelations"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/transactions.Filter"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "TransactionController.findById"
+            },
+            "delete": {
+                "x-controller-name": "TransactionController",
+                "x-operation-name": "deleteById",
+                "tags": [
+                    "TransactionController"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Transaction DELETE success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "TransactionController.deleteById"
+            }
+        },
+        "/transactions": {
+            "post": {
+                "x-controller-name": "TransactionController",
+                "x-operation-name": "create",
+                "tags": [
+                    "TransactionController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transaction model instance",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Transaction"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewTransaction"
+                            }
+                        }
+                    }
+                },
+                "operationId": "TransactionController.create"
+            },
+            "patch": {
+                "x-controller-name": "TransactionController",
+                "x-operation-name": "updateAll",
+                "tags": [
+                    "TransactionController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transaction PATCH success count",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loopback.Count"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "where",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "transactions.WhereFilter",
+                                    "additionalProperties": true,
+                                    "x-typescript-type": "@loopback/repository#Where<Transaction>"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TransactionPartial"
+                            }
+                        }
+                    }
+                },
+                "operationId": "TransactionController.updateAll"
+            },
+            "get": {
+                "x-controller-name": "TransactionController",
+                "x-operation-name": "find",
+                "tags": [
+                    "TransactionController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of Transaction model instances",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TransactionWithRelations"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/transactions.Filter1"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "TransactionController.find"
+            }
+        },
+        "/users/count": {
+            "get": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "count",
+                "tags": [
+                    "UserController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User model count",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loopback.Count"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "where",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "users.WhereFilter",
+                                    "additionalProperties": true,
+                                    "x-typescript-type": "@loopback/repository#Where<User>"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "UserController.count"
+            }
+        },
+        "/users/{id}": {
+            "put": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "replaceById",
+                "tags": [
+                    "UserController"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "User PUT success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    },
+                    "x-parameter-index": 1
+                },
+                "operationId": "UserController.replaceById"
+            },
+            "patch": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "updateById",
+                "tags": [
+                    "UserController"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "User PATCH success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserPartial"
+                            }
+                        }
+                    },
+                    "x-parameter-index": 1
+                },
+                "operationId": "UserController.updateById"
+            },
+            "get": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "findById",
+                "tags": [
+                    "UserController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User model instance",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserWithRelations"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/users.Filter"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "UserController.findById"
+            },
+            "delete": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "deleteById",
+                "tags": [
+                    "UserController"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "User DELETE success"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "UserController.deleteById"
+            }
+        },
+        "/users": {
+            "post": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "create",
+                "tags": [
+                    "UserController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User model instance",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewUser"
+                            }
+                        }
+                    }
+                },
+                "operationId": "UserController.create"
+            },
+            "patch": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "updateAll",
+                "tags": [
+                    "UserController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User PATCH success count",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loopback.Count"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "where",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "users.WhereFilter",
+                                    "additionalProperties": true,
+                                    "x-typescript-type": "@loopback/repository#Where<User>"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserPartial"
+                            }
+                        }
+                    }
+                },
+                "operationId": "UserController.updateAll"
+            },
+            "get": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "find",
+                "tags": [
+                    "UserController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of User model instances",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserWithRelations"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/users.Filter1"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "UserController.find"
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "User": {
+                "title": "User",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "userName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "userName",
+                    "email",
+                    "password",
+                    "createdAt"
+                ],
+                "additionalProperties": false
+            },
+            "NewUser": {
+                "title": "NewUser",
+                "type": "object",
+                "description": "(tsType: Omit<User, 'id'>, schemaOptions: { title: 'NewUser', exclude: [ 'id' ] })",
+                "properties": {
+                    "userName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "userName",
+                    "email",
+                    "password",
+                    "createdAt"
+                ],
+                "additionalProperties": false,
+                "x-typescript-type": "Omit<User, 'id'>"
+            },
+            "UserWithRelations": {
+                "title": "UserWithRelations",
+                "type": "object",
+                "description": "(tsType: UserWithRelations, schemaOptions: { includeRelations: true })",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "userName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "userName",
+                    "email",
+                    "password",
+                    "createdAt"
+                ],
+                "additionalProperties": false,
+                "x-typescript-type": "UserWithRelations"
+            },
+            "UserPartial": {
+                "title": "UserPartial",
+                "type": "object",
+                "description": "(tsType: Partial<User>, schemaOptions: { partial: true })",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "userName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false,
+                "x-typescript-type": "Partial<User>"
+            },
+            "Transaction": {
+                "title": "Transaction",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "userId": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "totalPrice": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "userId",
+                    "createdAt",
+                    "totalPrice"
+                ],
+                "additionalProperties": false
+            },
+            "NewTransaction": {
+                "title": "NewTransaction",
+                "type": "object",
+                "description": "(tsType: Omit<Transaction, 'id'>, schemaOptions: { title: 'NewTransaction', exclude: [ 'id' ] })",
+                "properties": {
+                    "userId": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "totalPrice": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "userId",
+                    "createdAt",
+                    "totalPrice"
+                ],
+                "additionalProperties": false,
+                "x-typescript-type": "Omit<Transaction, 'id'>"
+            },
+            "TransactionItemWithRelations": {
+                "title": "TransactionItemWithRelations",
+                "type": "object",
+                "description": "(tsType: TransactionItemWithRelations, schemaOptions: { includeRelations: true })",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "itemId": {
+                        "type": "number"
+                    },
+                    "quantity": {
+                        "type": "number"
+                    },
+                    "unitPrice": {
+                        "type": "number"
+                    },
+                    "transactionId": {
+                        "type": "number"
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/TransactionWithRelations"
+                    },
+                    "foreignKey": {}
+                },
+                "required": [
+                    "itemId",
+                    "quantity",
+                    "unitPrice"
+                ],
+                "additionalProperties": false,
+                "x-typescript-type": "TransactionItemWithRelations"
+            },
+            "TransactionWithRelations": {
+                "title": "TransactionWithRelations",
+                "type": "object",
+                "description": "(tsType: TransactionWithRelations, schemaOptions: { includeRelations: true })",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "userId": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "totalPrice": {
+                        "type": "number"
+                    },
+                    "transactionItems": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TransactionItemWithRelations"
+                        }
+                    }
+                },
+                "required": [
+                    "userId",
+                    "createdAt",
+                    "totalPrice"
+                ],
+                "additionalProperties": false,
+                "x-typescript-type": "TransactionWithRelations"
+            },
+            "TransactionPartial": {
+                "title": "TransactionPartial",
+                "type": "object",
+                "description": "(tsType: Partial<Transaction>, schemaOptions: { partial: true })",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "userId": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "totalPrice": {
+                        "type": "number"
+                    }
+                },
+                "additionalProperties": false,
+                "x-typescript-type": "Partial<Transaction>"
+            },
+            "Item": {
+                "title": "Item",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "quantity": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "name",
+                    "price",
+                    "quantity",
+                    "createdAt"
+                ],
+                "additionalProperties": false
+            },
+            "NewItem": {
+                "title": "NewItem",
+                "type": "object",
+                "description": "(tsType: Omit<Item, 'id'>, schemaOptions: { title: 'NewItem', exclude: [ 'id' ] })",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "quantity": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "name",
+                    "price",
+                    "quantity",
+                    "createdAt"
+                ],
+                "additionalProperties": false,
+                "x-typescript-type": "Omit<Item, 'id'>"
+            },
+            "ItemWithRelations": {
+                "title": "ItemWithRelations",
+                "type": "object",
+                "description": "(tsType: ItemWithRelations, schemaOptions: { includeRelations: true })",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "quantity": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "name",
+                    "price",
+                    "quantity",
+                    "createdAt"
+                ],
+                "additionalProperties": false,
+                "x-typescript-type": "ItemWithRelations"
+            },
+            "ItemPartial": {
+                "title": "ItemPartial",
+                "type": "object",
+                "description": "(tsType: Partial<Item>, schemaOptions: { partial: true })",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "quantity": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false,
+                "x-typescript-type": "Partial<Item>"
+            },
+            "loopback.Count": {
+                "type": "object",
+                "title": "loopback.Count",
+                "x-typescript-type": "@loopback/repository#Count",
+                "properties": {
+                    "count": {
+                        "type": "number"
+                    }
+                }
+            },
+            "items.Filter": {
+                "type": "object",
+                "title": "items.Filter",
+                "properties": {
+                    "offset": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 100
+                    },
+                    "skip": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "order": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
+                    },
+                    "fields": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "boolean"
+                                    },
+                                    "name": {
+                                        "type": "boolean"
+                                    },
+                                    "description": {
+                                        "type": "boolean"
+                                    },
+                                    "category": {
+                                        "type": "boolean"
+                                    },
+                                    "price": {
+                                        "type": "boolean"
+                                    },
+                                    "quantity": {
+                                        "type": "boolean"
+                                    },
+                                    "createdAt": {
+                                        "type": "boolean"
+                                    },
+                                    "updatedAt": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "id",
+                                        "name",
+                                        "description",
+                                        "category",
+                                        "price",
+                                        "quantity",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ],
+                                    "example": "id"
+                                },
+                                "uniqueItems": true
+                            }
+                        ],
+                        "title": "items.Fields"
+                    }
+                },
+                "additionalProperties": false,
+                "x-typescript-type": "@loopback/repository#Filter<Item>"
+            },
+            "items.Filter1": {
+                "type": "object",
+                "title": "items.Filter",
+                "properties": {
+                    "offset": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 100
+                    },
+                    "skip": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "order": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
+                    },
+                    "where": {
+                        "title": "items.WhereFilter",
+                        "type": "object",
+                        "additionalProperties": true
+                    },
+                    "fields": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "boolean"
+                                    },
+                                    "name": {
+                                        "type": "boolean"
+                                    },
+                                    "description": {
+                                        "type": "boolean"
+                                    },
+                                    "category": {
+                                        "type": "boolean"
+                                    },
+                                    "price": {
+                                        "type": "boolean"
+                                    },
+                                    "quantity": {
+                                        "type": "boolean"
+                                    },
+                                    "createdAt": {
+                                        "type": "boolean"
+                                    },
+                                    "updatedAt": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "id",
+                                        "name",
+                                        "description",
+                                        "category",
+                                        "price",
+                                        "quantity",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ],
+                                    "example": "id"
+                                },
+                                "uniqueItems": true
+                            }
+                        ],
+                        "title": "items.Fields"
+                    }
+                },
+                "additionalProperties": false,
+                "x-typescript-type": "@loopback/repository#Filter<Item>"
+            },
+            "PingResponse": {
+                "type": "object",
+                "title": "PingResponse",
+                "properties": {
+                    "greeting": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "headers": {
+                        "type": "object",
+                        "properties": {
+                            "Content-Type": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                }
+            },
+            "transactions.ScopeFilter": {
+                "type": "object",
+                "properties": {
+                    "offset": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 100
+                    },
+                    "skip": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "order": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
+                    },
+                    "where": {
+                        "type": "object",
+                        "additionalProperties": true
+                    },
+                    "fields": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": true
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "uniqueItems": true
+                            }
+                        ]
+                    },
+                    "include": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "additionalProperties": false,
+                "title": "transactions.ScopeFilter"
+            },
+            "transactions.IncludeFilter.Items": {
+                "title": "transactions.IncludeFilter.Items",
+                "type": "object",
+                "properties": {
+                    "relation": {
+                        "type": "string",
+                        "enum": [
+                            "transactionItems"
+                        ]
+                    },
+                    "scope": {
+                        "$ref": "#/components/schemas/transactions.ScopeFilter"
+                    }
+                }
+            },
+            "transactions.Filter": {
+                "type": "object",
+                "title": "transactions.Filter",
+                "properties": {
+                    "offset": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 100
+                    },
+                    "skip": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "order": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
+                    },
+                    "fields": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "boolean"
+                                    },
+                                    "userId": {
+                                        "type": "boolean"
+                                    },
+                                    "createdAt": {
+                                        "type": "boolean"
+                                    },
+                                    "totalPrice": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "id",
+                                        "userId",
+                                        "createdAt",
+                                        "totalPrice"
+                                    ],
+                                    "example": "id"
+                                },
+                                "uniqueItems": true
+                            }
+                        ],
+                        "title": "transactions.Fields"
+                    },
+                    "include": {
+                        "title": "transactions.IncludeFilter",
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/transactions.IncludeFilter.Items"
+                                },
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "additionalProperties": false,
+                "x-typescript-type": "@loopback/repository#Filter<Transaction>"
+            },
+            "transactions.Filter1": {
+                "type": "object",
+                "title": "transactions.Filter",
+                "properties": {
+                    "offset": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 100
+                    },
+                    "skip": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "order": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
+                    },
+                    "where": {
+                        "title": "transactions.WhereFilter",
+                        "type": "object",
+                        "additionalProperties": true
+                    },
+                    "fields": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "boolean"
+                                    },
+                                    "userId": {
+                                        "type": "boolean"
+                                    },
+                                    "createdAt": {
+                                        "type": "boolean"
+                                    },
+                                    "totalPrice": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "id",
+                                        "userId",
+                                        "createdAt",
+                                        "totalPrice"
+                                    ],
+                                    "example": "id"
+                                },
+                                "uniqueItems": true
+                            }
+                        ],
+                        "title": "transactions.Fields"
+                    },
+                    "include": {
+                        "title": "transactions.IncludeFilter",
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/transactions.IncludeFilter.Items"
+                                },
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "additionalProperties": false,
+                "x-typescript-type": "@loopback/repository#Filter<Transaction>"
+            },
+            "users.Filter": {
+                "type": "object",
+                "title": "users.Filter",
+                "properties": {
+                    "offset": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 100
+                    },
+                    "skip": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "order": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
+                    },
+                    "fields": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "boolean"
+                                    },
+                                    "userName": {
+                                        "type": "boolean"
+                                    },
+                                    "email": {
+                                        "type": "boolean"
+                                    },
+                                    "password": {
+                                        "type": "boolean"
+                                    },
+                                    "firstName": {
+                                        "type": "boolean"
+                                    },
+                                    "lastName": {
+                                        "type": "boolean"
+                                    },
+                                    "createdAt": {
+                                        "type": "boolean"
+                                    },
+                                    "updatedAt": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "id",
+                                        "userName",
+                                        "email",
+                                        "password",
+                                        "firstName",
+                                        "lastName",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ],
+                                    "example": "id"
+                                },
+                                "uniqueItems": true
+                            }
+                        ],
+                        "title": "users.Fields"
+                    }
+                },
+                "additionalProperties": false,
+                "x-typescript-type": "@loopback/repository#Filter<User>"
+            },
+            "users.Filter1": {
+                "type": "object",
+                "title": "users.Filter",
+                "properties": {
+                    "offset": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 100
+                    },
+                    "skip": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "order": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
+                    },
+                    "where": {
+                        "title": "users.WhereFilter",
+                        "type": "object",
+                        "additionalProperties": true
+                    },
+                    "fields": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "boolean"
+                                    },
+                                    "userName": {
+                                        "type": "boolean"
+                                    },
+                                    "email": {
+                                        "type": "boolean"
+                                    },
+                                    "password": {
+                                        "type": "boolean"
+                                    },
+                                    "firstName": {
+                                        "type": "boolean"
+                                    },
+                                    "lastName": {
+                                        "type": "boolean"
+                                    },
+                                    "createdAt": {
+                                        "type": "boolean"
+                                    },
+                                    "updatedAt": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "id",
+                                        "userName",
+                                        "email",
+                                        "password",
+                                        "firstName",
+                                        "lastName",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ],
+                                    "example": "id"
+                                },
+                                "uniqueItems": true
+                            }
+                        ],
+                        "title": "users.Fields"
+                    }
+                },
+                "additionalProperties": false,
+                "x-typescript-type": "@loopback/repository#Filter<User>"
+            }
+        }
+    }
+}

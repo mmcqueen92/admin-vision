@@ -1,0 +1,153 @@
+<div class="content-container">
+  <mat-card class="filters-container">
+    <form
+      [formGroup]="filterForm"
+      class="filters-form"
+      (ngSubmit)="onFilterSubmit()"
+    >
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>ID</mat-label>
+        <input matInput type="number" formControlName="id_input" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name_input" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" formControlName="description_input" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Category</mat-label>
+        <input matInput type="text" formControlName="category_input" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Quantity min</mat-label>
+        <input matInput type="number" formControlName="quantity_min_input" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Quantity max</mat-label>
+        <input matInput type="number" formControlName="quantity_max_input" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Created At</mat-label>
+        <mat-date-range-input [rangePicker]="created_at_picker">
+          <input
+            matStartDate
+            placeholder="Start date"
+            formControlName="created_at_start_input"
+            [attr.aria-label]="'Enter Created At start date'"
+          />
+          <input
+            matEndDate
+            placeholder="End date"
+            formControlName="created_at_end_input"
+            [attr.aria-label]="'Enter Created At end date'"
+          />
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="created_at_picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #created_at_picker></mat-date-range-picker>
+      </mat-form-field>
+
+      <div class="form-buttons-container">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          (click)="onFilterSubmit()"
+        >
+          Search
+        </button>
+        <button mat-raised-button color="warn" (click)="clearFilters()">
+          <span>Clear Filters</span>
+        </button>
+      </div>
+    </form>
+  </mat-card>
+
+  <mat-card class="table-container">
+    <div class="table-button-container">
+      <button mat-raised-button color="primary" (click)="openAddNewProduct('200', '200')">Create</button>
+    </div>
+    <mat-table [dataSource]="itemsTableDataSource">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>Product ID</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.category }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.quantity }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef>Created At</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{
+          element.createdAt | date : "MMM dd, yyyy, h:mm a"
+        }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedAt">
+        <mat-header-cell *matHeaderCellDef>Updated At</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{
+          element.updatedAt | date : "MMM dd, yyyy, h:mm a"
+        }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div>
+            <button
+              mat-raised-button
+              color="accent"
+              class="table-action-button"
+              (click)="openEditProduct('200', '200')"
+            >
+              Edit
+            </button>
+            <button mat-raised-button color="warn" class="table-action-button" (click)="deleteItem(element.id)">
+              Delete
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator
+      [pageSizeOptions]="pageLimitOptions"
+      showFirstLastButtons
+      [length]="totalResults"
+      [pageSize]="currentPageLimit"
+      [pageIndex]="currentPage - 1"
+      (page)="handlePageEvent($event)"
+    ></mat-paginator>
+  </mat-card>
+</div>

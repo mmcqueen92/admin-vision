@@ -1,0 +1,161 @@
+<div class="content-container">
+  <mat-card class="data-container">
+    <div class="data-sub-container">
+      <mat-card class="data-display accent-colour">
+        <mat-card-content>
+          Total Users: {{ displayData.totalUsers }}
+        </mat-card-content></mat-card
+      >
+      <mat-card class="data-display accent-colour">
+        <mat-card-content>
+          New Users Past 30 Days: {{ displayData.usersPast30Days }}
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="data-display accent-colour"
+        ><mat-card-content>
+          Total Transactions: {{ displayData.totalTransactions }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="data-sub-container">
+      <mat-card class="data-display accent-colour">
+        <mat-card-content>
+          Transactions Past 30 Days:
+          {{ displayData.transactionsPast30Days }}
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="data-display accent-colour">
+        <mat-card-content>
+          Low Stock Items: {{ displayData.lowStockItems }}
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="data-display accent-colour">
+        <mat-card-content>
+          Out of Stock Items: {{ displayData.outOfStockItems }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card>
+
+  <mat-card class="filters-container">
+    <form [formGroup]="filterForm" class="filters-form" (ngSubmit)="onFilterSubmit()">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Transaction ID</mat-label>
+        <input matInput type="number" formControlName="transaction_id_input" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>User ID</mat-label>
+        <input matInput type="number" formControlName="user_id_input" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Created At</mat-label>
+        <mat-date-range-input [rangePicker]="created_at_picker">
+          <input
+            matStartDate
+            placeholder="Start date"
+            formControlName="created_at_start_input"
+            [attr.aria-label]="'Enter Created At start date'"
+          />
+          <input
+            matEndDate
+            placeholder="End date"
+            formControlName="created_at_end_input"
+            [attr.aria-label]="'Enter Created At end date'"
+          />
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="created_at_picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #created_at_picker></mat-date-range-picker>
+      </mat-form-field>
+
+      <!-- <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Items</mat-label>
+        <input matInput type="text" formControlName="items_input" />
+      </mat-form-field> -->
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Total Price min.</mat-label>
+        <input matInput type="number" formControlName="total_price_min_input" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Total Price max.</mat-label>
+        <input matInput type="number" formControlName="total_price_max_input" />
+      </mat-form-field>
+
+      <div class="form-buttons-container">
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="clearFilters()"
+        >
+          <span>Clear Filters</span>
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onFilterSubmit()"
+        >
+          Search
+        </button>
+      </div>
+    </form>
+  </mat-card>
+
+  <mat-card class="table-container">
+    <mat-table [dataSource]="transactionsTableDataSource">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>Transaction ID</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="userId">
+        <mat-header-cell *matHeaderCellDef>User ID</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.userId }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef>Created At</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{
+          element.createdAt | date : "MMM dd, yyyy, h:mm a"
+        }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="transactionItems">
+        <mat-header-cell *matHeaderCellDef>Items</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div class="transaction-items-list">
+            <div *ngFor="let item of element.transactionItems">
+              <div class="transaction-items-list-item">
+                {{ item.item.name }} x{{ item.quantity }} &#64; ${{
+                  item.unitPrice
+                }}
+              </div>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalPrice">
+        <mat-header-cell *matHeaderCellDef>Total Price</mat-header-cell>
+        <mat-cell *matCellDef="let element">${{ element.totalPrice }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator
+      [pageSizeOptions]="pageLimitOptions"
+      showFirstLastButtons
+      [length]="totalResults"
+      [pageSize]="currentPageLimit"
+      [pageIndex]="currentPage - 1"
+      (page)="handlePageEvent($event)"
+    ></mat-paginator>
+  </mat-card>
+</div>
