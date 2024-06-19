@@ -1,9 +1,18 @@
 import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
+import {
+  DefaultCrudRepository,
+  repository,
+  BelongsToAccessor,
+} from '@loopback/repository';
 import {AdminVisionMySqlDataSource} from '../datasources';
-import {TransactionItem, TransactionItemRelations, Item, Transaction} from '../models';
-import { TransactionRepository } from './transaction.repository';
-import { ItemRepository } from './item.repository';
+import {
+  TransactionItem,
+  TransactionItemRelations,
+  Item,
+  Transaction,
+} from '../models';
+import {TransactionRepository} from './transaction.repository';
+import {ItemRepository} from './item.repository';
 
 export class TransactionItemRepository extends DefaultCrudRepository<
   TransactionItem,

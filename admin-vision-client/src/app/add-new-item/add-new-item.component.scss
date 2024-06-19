@@ -1,0 +1,19 @@
+.form-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.create-new-item-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10px 10px 10px;
+}
+
+.form-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

@@ -1,1 +1,75 @@
-<p>newsletter works!</p>
+<div class="newsletter-container">
+  <mat-card class="form-container">
+    <h2>Newsletter Dashboard</h2>
+    <form [formGroup]="newsletterForm" class="newsletter-form">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Subject</mat-label>
+        <input matInput type="text" formControlName="subject_input" required />
+      </mat-form-field>
+
+      <mat-form-field class="message-form-field">
+        <mat-label>Message</mat-label>
+        <textarea
+          class="message-text-area"
+          matInput
+          required
+          cdkTextareaAutosize
+          formControlName="message_input"
+        ></textarea>
+      </mat-form-field>
+    </form>
+    <div class="response-message" *ngIf="responseMessage">
+      {{ responseMessage }}
+    </div>
+    <div class="button-container">
+      <button mat-raised-button color="primary" (click)="previewEmail()">
+        Preview
+      </button>
+    </div>
+
+    <mat-card *ngIf="showPreview" class="email-preview">
+      <p>
+        <strong>Subject:</strong>
+        {{ newsletterForm.get("subject_input")?.value }}
+      </p>
+      <div>
+        <strong>Message:</strong>
+        <div class="banner">
+          <img
+            src="assets/email-banner.png"
+            alt="Company Banner"
+            class="logo"
+          />
+        </div>
+        <div class="preview-message">
+          <p>
+            {{ newsletterForm.get("message_input")?.value }}
+          </p>
+        </div>
+      </div>
+      <div>
+        <strong>Items on Sale:</strong>
+        <ul>
+          <li>Item 1 - $10.00 - Category 1</li>
+          <li>Item 2 - $20.00 - Category 2</li>
+          <li>Item 3 - $30.00 - Category 3</li>
+        </ul>
+      </div>
+      <div class="footer">
+        <p>&copy; 2024 Admin-Vision. All rights reserved.</p>
+        <p><a href="#">Unsubscribe</a></p>
+      </div>
+    </mat-card>
+
+    <div class="button-container" *ngIf="showPreview">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="sendNewsletter()"
+      >
+        Send
+      </button>
+    </div>
+  </mat-card>
+</div>

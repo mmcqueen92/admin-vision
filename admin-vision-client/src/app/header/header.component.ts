@@ -12,7 +12,6 @@ import { FormsModule } from '@angular/forms';
 export class HeaderComponent {
   isFrench: boolean = false;
   showDropdown: boolean = false;
-  showNav: boolean = false;
 
   logout() {
     console.log('Logout!');
@@ -20,6 +19,9 @@ export class HeaderComponent {
 
   toggleDropdown() {
     console.log('Toggle dropdown');
+    this.showDropdown
+      ? (this.showDropdown = false)
+      : (this.showDropdown = true);
   }
 
   toggleLanguage() {

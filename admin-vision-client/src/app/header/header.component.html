@@ -1,63 +1,40 @@
-<header class="primary-colour">
+<header class="header-container primary-colour">
   <img src="assets/generic-logo.png" alt="Generic Logo" class="header-logo" />
   <nav>
     <ul class="nav-container">
-      <div *ngIf="showNav" class="nav-items">
-        <li>
-          <a href="#" [attr.aria-label]="'Go to Dashboard'">{{
-            "Dashboard"
-          }}</a>
-        </li>
-        <li>
-          <a href="newsletter" [attr.aria-label]="'Go to Newsletter'">{{
-            "Newsletter"
-          }}</a>
-        </li>
-        <li>
-          <a href="products" [attr.aria-label]="'Go to Products'">{{
-            "Products"
-          }}</a>
-        </li>
-      </div>
-      <div class="nav-actions">
-        <li>
-          <div class="language-toggle">
-            <span>English</span>
-            &nbsp;
-
-            <label class="switch">
-              <input
-                type="checkbox"
-                [(ngModel)]="isFrench"
-                (change)="toggleLanguage()"
-                [attr.aria-label]="'Toggle language'"
-              />
-              <span class="slider"></span>
-            </label>
-            &nbsp;
-
-            <span>Français</span>
-          </div>
-        </li>
-
-        <li *ngIf="showNav" class="profile-dropdown">
-          <button (click)="toggleDropdown()">
-            <i class="fas fa-user"></i>
-            <!-- FontAwesome user icon -->
-          </button>
-
-          <div class="dropdown-content" *ngIf="showDropdown">
-            <!-- Dropdown content goes here -->
-            <a
-              class="drop-content"
-              href="#"
-              [attr.aria-label]="'Logged in as testuser'"
-              >Logged in as testuser</a
-            >
-            <a (click)="logout()" class="drop-content" href="#">Logout</a>
-          </div>
-        </li>
-      </div>
+      <li>
+        <a href="" [attr.aria-label]="'Go to Dashboard'">{{ "Dashboard" }}</a>
+      </li>
+      <li>
+        <a href="newsletter" [attr.aria-label]="'Go to Newsletter'">{{
+          "Newsletter"
+        }}</a>
+      </li>
+      <li>
+        <a href="products" [attr.aria-label]="'Go to Products'">{{
+          "Products"
+        }}</a>
+      </li>
+      <li>
+        <a href="analytics" [attr.aria-label]="'Go to Analytics'">{{
+          "Analytics"
+        }}</a>
+      </li>
     </ul>
   </nav>
+  <div class="profile-dropdown">
+    <button (click)="toggleDropdown()" class="accent-colour">
+      <i class="fas fa-user"></i>
+    </button>
+
+    <div class="dropdown-content" *ngIf="showDropdown">
+      <a
+        class="drop-content"
+        href="#"
+        [attr.aria-label]="'Logged in as testuser'"
+        >Logged in as testuser</a
+      >
+      <a (click)="logout()" class="drop-content" href="#">Logout</a>
+    </div>
+  </div>
 </header>

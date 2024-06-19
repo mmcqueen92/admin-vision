@@ -44,12 +44,15 @@
 .table-container {
     margin-top: 25px;
     width: 80vw;
+    padding: 5px
 }
 
 .table-button-container {
     display: flex;
-    flex-direction: row-reverse;
-    padding: 5px;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    // padding: 5px;
 }
 
 .table-action-button {

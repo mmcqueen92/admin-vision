@@ -39,7 +39,6 @@ export class Item extends Entity {
 
   @property({
     type: 'date',
-    required: true,
   })
   createdAt: string;
 
@@ -47,6 +46,11 @@ export class Item extends Entity {
     type: 'date',
   })
   updatedAt?: string;
+
+  @property({
+    type: 'boolean'
+  })
+  onSale?: boolean;
 
   constructor(data?: Partial<Item>) {
     super(data);

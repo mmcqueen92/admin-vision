@@ -48,6 +48,33 @@ export class User extends Entity {
   })
   updatedAt?: string;
 
+  @property({
+    type: 'boolean',
+    default: false,
+  })
+  optIn?: boolean;
+
+  @property({
+    type: 'string',
+    length: 255,
+  })
+  preferredCategories?: string;
+
+  @property({
+    type: 'date',
+  })
+  dateOfBirth?: string;
+
+  @property({
+    type: 'string'
+  })
+  gender?: string;
+
+  @property({
+    type: 'string',
+  })
+  country?: string;
+  
   constructor(data?: Partial<User>) {
     super(data);
   }

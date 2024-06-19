@@ -2,3 +2,8 @@ export * from './item.repository';
 export * from './user.repository';
 export * from './transaction.repository';
 export * from './transaction-item.repository';
+export * from './traffic-source.repository';
+export * from './cart.repository';
+export * from './conversion.repository';
+export * from './cart-item.repository';
+export * from './analytics.repository';

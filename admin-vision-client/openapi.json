@@ -10,6 +10,713 @@
         }
     },
     "paths": {
+        "/analytics/averageOrderValue": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "averageOrderValue",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Average order value",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "averageOrderValue": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.averageOrderValue"
+            }
+        },
+        "/analytics/averageOrderValueByMonth": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "averageOrderValueByMonth",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Average order value by month",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "month": {
+                                                "type": "string",
+                                                "description": "Month in the format YYYY-MM"
+                                            },
+                                            "averageOrderValue": {
+                                                "type": "number",
+                                                "description": "Average order value for the month"
+                                            }
+                                        },
+                                        "required": [
+                                            "month",
+                                            "averageOrderValue"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.averageOrderValueByMonth"
+            }
+        },
+        "/analytics/bestSellingItems": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "bestSellingItems",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of best selling items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "itemId": {
+                                                "type": "number"
+                                            },
+                                            "itemName": {
+                                                "type": "string"
+                                            },
+                                            "totalQuantitySold": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.bestSellingItems"
+            }
+        },
+        "/analytics/cartAbandonmentRate": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "cartAbandonmentRate",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cart abandonment rate percentage",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "abandonmentRate": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.cartAbandonmentRate"
+            }
+        },
+        "/analytics/conversionRates": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "conversionRates",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Conversion rate percentage",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.conversionRates"
+            }
+        },
+        "/analytics/customerDemographics": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "customerDemographics",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Customer demographics data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "genderDistribution": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "gender": {
+                                                        "type": "string"
+                                                    },
+                                                    "count": {
+                                                        "type": "number"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "ageDistribution": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "age_group": {
+                                                        "type": "string"
+                                                    },
+                                                    "count": {
+                                                        "type": "number"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "locationDistribution": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "location": {
+                                                        "type": "string"
+                                                    },
+                                                    "count": {
+                                                        "type": "number"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.customerDemographics"
+            }
+        },
+        "/analytics/customerRetention": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "customerRetention",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Customer retention rate percentage",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "retentionRate": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.customerRetention"
+            }
+        },
+        "/analytics/customerRetentionMonthly": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "customerRetentionMonthly",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of monthly customer retention rates",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "month": {
+                                                "type": "string"
+                                            },
+                                            "retentionRate": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.customerRetentionMonthly"
+            }
+        },
+        "/analytics/findAllItemsTransactionData": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "findAllItemsTransactionData",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "monthsBack",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "operationId": "AnalyticsController.findAllItemsTransactionData"
+            }
+        },
+        "/analytics/monthlyConversionRates": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "findMonthlyConversionRates",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Monthly conversion rates",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "month": {
+                                                "type": "string",
+                                                "description": "Month in the format YYYY-MM"
+                                            },
+                                            "conversionRate": {
+                                                "type": "number",
+                                                "description": "Conversion rate for the month"
+                                            }
+                                        },
+                                        "required": [
+                                            "month",
+                                            "conversionRate"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.findMonthlyConversionRates"
+            }
+        },
+        "/analytics/monthlyPerformanceByCategory": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "findMonthlyPerformanceByCategory",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Monthly performance by category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "labels": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "description": "Month in the format YYYY-MM"
+                                            },
+                                            "description": "Array of months"
+                                        },
+                                        "datasets": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "label": {
+                                                        "type": "string",
+                                                        "description": "Category of the item"
+                                                    },
+                                                    "data": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "number",
+                                                            "description": "Total revenue for the category in the month"
+                                                        }
+                                                    }
+                                                },
+                                                "required": [
+                                                    "label",
+                                                    "data"
+                                                ]
+                                            },
+                                            "description": "Array of datasets with revenue data for each category"
+                                        }
+                                    },
+                                    "required": [
+                                        "labels",
+                                        "datasets"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.findMonthlyPerformanceByCategory"
+            }
+        },
+        "/analytics/monthlyRevenueByItem": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "findMonthlyRevenueByItem",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Monthly revenue by item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "labels": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "datasets": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "label": {
+                                                        "type": "string"
+                                                    },
+                                                    "data": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "number"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.findMonthlyRevenueByItem"
+            }
+        },
+        "/analytics/monthlySalesRevenue": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "monthlySalesRevenue",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Monthly sales revenue data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "month": {
+                                                "type": "string"
+                                            },
+                                            "totalSales": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.monthlySalesRevenue"
+            }
+        },
+        "/analytics/newUsersByMonth": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "newUsersByMonth",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New users created by month",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "month": {
+                                                "type": "string",
+                                                "description": "Month in the format YYYY-MM"
+                                            },
+                                            "newUserCount": {
+                                                "type": "number",
+                                                "description": "Number of new users created for the month"
+                                            }
+                                        },
+                                        "required": [
+                                            "month",
+                                            "newUserCount"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.newUsersByMonth"
+            }
+        },
+        "/analytics/productPerformance": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "productPerformance",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product performance data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "salesTrends": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "month": {
+                                                        "type": "string"
+                                                    },
+                                                    "salesCount": {
+                                                        "type": "number"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "topSellingProducts": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Item"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.productPerformance"
+            }
+        },
+        "/analytics/totalRevenueByCategory": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "findTotalRevenueByCategory",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Total revenue by category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "category": {
+                                                "type": "string",
+                                                "description": "Category of the item"
+                                            },
+                                            "totalRevenue": {
+                                                "type": "number",
+                                                "description": "Total revenue generated by the category"
+                                            }
+                                        },
+                                        "required": [
+                                            "category",
+                                            "totalRevenue"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.findTotalRevenueByCategory"
+            }
+        },
+        "/analytics/trafficSources": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "trafficSources",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Traffic sources data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TrafficSources"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AnalyticsController.trafficSources"
+            }
+        },
+        "/analytics/transactionItemData": {
+            "get": {
+                "x-controller-name": "AnalyticsController",
+                "x-operation-name": "findTransactionItemData",
+                "tags": [
+                    "AnalyticsController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Top revenue items based on filters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "number"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "totalRevenue": {
+                                                "type": "number"
+                                            },
+                                            "totalUnitsSold": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "required": [
+                                            "id",
+                                            "name",
+                                            "totalRevenue",
+                                            "totalUnitsSold"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "skip",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "monthsBack",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "operationId": "AnalyticsController.findTransactionItemData"
+            }
+        },
         "/items/count": {
             "get": {
                 "x-controller-name": "ItemController",
@@ -333,6 +1040,63 @@
                     }
                 },
                 "operationId": "PingController.ping"
+            }
+        },
+        "/send-newsletter": {
+            "post": {
+                "x-controller-name": "NewsletterController",
+                "x-operation-name": "sendNewsletter",
+                "tags": [
+                    "NewsletterController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Send newsletter",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "message": "Newsletter sent successfully",
+                                    "sentTo": [
+                                        "email1",
+                                        "email2"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "message",
+                                    "subject"
+                                ],
+                                "properties": {
+                                    "message": {
+                                        "type": "string"
+                                    },
+                                    "subject": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "NewsletterController.sendNewsletter"
             }
         },
         "/transactions/count": {
@@ -978,6 +1742,22 @@
                     "updatedAt": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "optIn": {
+                        "type": "boolean"
+                    },
+                    "preferredCategories": {
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -1015,6 +1795,22 @@
                     "updatedAt": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "optIn": {
+                        "type": "boolean"
+                    },
+                    "preferredCategories": {
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -1056,6 +1852,22 @@
                     "updatedAt": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "optIn": {
+                        "type": "boolean"
+                    },
+                    "preferredCategories": {
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -1097,6 +1909,22 @@
                     "updatedAt": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "optIn": {
+                        "type": "boolean"
+                    },
+                    "preferredCategories": {
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
                     }
                 },
                 "additionalProperties": false,
@@ -1151,15 +1979,55 @@
                 "additionalProperties": false,
                 "x-typescript-type": "Omit<Transaction, 'id'>"
             },
+            "ItemWithRelations": {
+                "title": "ItemWithRelations",
+                "type": "object",
+                "description": "(tsType: ItemWithRelations, schemaOptions: { includeRelations: true })",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "quantity": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "onSale": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "name",
+                    "price",
+                    "quantity"
+                ],
+                "additionalProperties": false,
+                "x-typescript-type": "ItemWithRelations"
+            },
             "TransactionItemWithRelations": {
                 "title": "TransactionItemWithRelations",
                 "type": "object",
                 "description": "(tsType: TransactionItemWithRelations, schemaOptions: { includeRelations: true })",
                 "properties": {
                     "id": {
-                        "type": "number"
-                    },
-                    "itemId": {
                         "type": "number"
                     },
                     "quantity": {
@@ -1171,13 +2039,18 @@
                     "transactionId": {
                         "type": "number"
                     },
+                    "itemId": {
+                        "type": "number"
+                    },
                     "transaction": {
                         "$ref": "#/components/schemas/TransactionWithRelations"
                     },
-                    "foreignKey": {}
+                    "foreignKey": {},
+                    "item": {
+                        "$ref": "#/components/schemas/ItemWithRelations"
+                    }
                 },
                 "required": [
-                    "itemId",
                     "quantity",
                     "unitPrice"
                 ],
@@ -1268,13 +2141,15 @@
                     "updatedAt": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "onSale": {
+                        "type": "boolean"
                     }
                 },
                 "required": [
                     "name",
                     "price",
-                    "quantity",
-                    "createdAt"
+                    "quantity"
                 ],
                 "additionalProperties": false
             },
@@ -1305,57 +2180,18 @@
                     "updatedAt": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "onSale": {
+                        "type": "boolean"
                     }
                 },
                 "required": [
                     "name",
                     "price",
-                    "quantity",
-                    "createdAt"
+                    "quantity"
                 ],
                 "additionalProperties": false,
                 "x-typescript-type": "Omit<Item, 'id'>"
-            },
-            "ItemWithRelations": {
-                "title": "ItemWithRelations",
-                "type": "object",
-                "description": "(tsType: ItemWithRelations, schemaOptions: { includeRelations: true })",
-                "properties": {
-                    "id": {
-                        "type": "number"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "description": {
-                        "type": "string"
-                    },
-                    "category": {
-                        "type": "string"
-                    },
-                    "price": {
-                        "type": "number"
-                    },
-                    "quantity": {
-                        "type": "number"
-                    },
-                    "createdAt": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "updatedAt": {
-                        "type": "string",
-                        "format": "date-time"
-                    }
-                },
-                "required": [
-                    "name",
-                    "price",
-                    "quantity",
-                    "createdAt"
-                ],
-                "additionalProperties": false,
-                "x-typescript-type": "ItemWithRelations"
             },
             "ItemPartial": {
                 "title": "ItemPartial",
@@ -1387,10 +2223,41 @@
                     "updatedAt": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "onSale": {
+                        "type": "boolean"
                     }
                 },
                 "additionalProperties": false,
                 "x-typescript-type": "Partial<Item>"
+            },
+            "TrafficSources": {
+                "title": "TrafficSources",
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": false
+                    },
+                    "id": {
+                        "type": "number",
+                        "nullable": false
+                    },
+                    "source": {
+                        "type": "string",
+                        "nullable": false
+                    },
+                    "userId": {
+                        "type": "number",
+                        "nullable": true
+                    }
+                },
+                "required": [
+                    "createdAt",
+                    "source"
+                ],
+                "additionalProperties": false
             },
             "loopback.Count": {
                 "type": "object",
@@ -1460,6 +2327,9 @@
                                     },
                                     "updatedAt": {
                                         "type": "boolean"
+                                    },
+                                    "onSale": {
+                                        "type": "boolean"
                                     }
                                 },
                                 "additionalProperties": false
@@ -1476,7 +2346,8 @@
                                         "price",
                                         "quantity",
                                         "createdAt",
-                                        "updatedAt"
+                                        "updatedAt",
+                                        "onSale"
                                     ],
                                     "example": "id"
                                 },
@@ -1552,6 +2423,9 @@
                                     },
                                     "updatedAt": {
                                         "type": "boolean"
+                                    },
+                                    "onSale": {
+                                        "type": "boolean"
                                     }
                                 },
                                 "additionalProperties": false
@@ -1568,7 +2442,8 @@
                                         "price",
                                         "quantity",
                                         "createdAt",
-                                        "updatedAt"
+                                        "updatedAt",
+                                        "onSale"
                                     ],
                                     "example": "id"
                                 },
@@ -1914,6 +2789,21 @@
                                     },
                                     "updatedAt": {
                                         "type": "boolean"
+                                    },
+                                    "optIn": {
+                                        "type": "boolean"
+                                    },
+                                    "preferredCategories": {
+                                        "type": "boolean"
+                                    },
+                                    "dateOfBirth": {
+                                        "type": "boolean"
+                                    },
+                                    "gender": {
+                                        "type": "boolean"
+                                    },
+                                    "country": {
+                                        "type": "boolean"
                                     }
                                 },
                                 "additionalProperties": false
@@ -1930,7 +2820,12 @@
                                         "firstName",
                                         "lastName",
                                         "createdAt",
-                                        "updatedAt"
+                                        "updatedAt",
+                                        "optIn",
+                                        "preferredCategories",
+                                        "dateOfBirth",
+                                        "gender",
+                                        "country"
                                     ],
                                     "example": "id"
                                 },
@@ -2006,6 +2901,21 @@
                                     },
                                     "updatedAt": {
                                         "type": "boolean"
+                                    },
+                                    "optIn": {
+                                        "type": "boolean"
+                                    },
+                                    "preferredCategories": {
+                                        "type": "boolean"
+                                    },
+                                    "dateOfBirth": {
+                                        "type": "boolean"
+                                    },
+                                    "gender": {
+                                        "type": "boolean"
+                                    },
+                                    "country": {
+                                        "type": "boolean"
                                     }
                                 },
                                 "additionalProperties": false
@@ -2022,7 +2932,12 @@
                                         "firstName",
                                         "lastName",
                                         "createdAt",
-                                        "updatedAt"
+                                        "updatedAt",
+                                        "optIn",
+                                        "preferredCategories",
+                                        "dateOfBirth",
+                                        "gender",
+                                        "country"
                                     ],
                                     "example": "id"
                                 },

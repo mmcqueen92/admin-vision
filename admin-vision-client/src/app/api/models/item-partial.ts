@@ -10,6 +10,7 @@ export interface ItemPartial {
   description?: string;
   id?: number;
   name?: string;
+  onSale?: boolean;
   price?: number;
   quantity?: number;
   updatedAt?: string;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   FormControl,
@@ -7,7 +7,7 @@ import {
   FormsModule,
 } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { ngxCsv } from 'ngx-csv';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -16,10 +16,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 
 import { AddNewItemComponent } from '../add-new-item/add-new-item.component';
 import { EditItemComponent } from '../edit-item/edit-item.component';
 import { ItemControllerService } from '../api/services';
+
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -35,6 +37,7 @@ import { ItemControllerService } from '../api/services';
     MatButtonModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatSortModule,
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
@@ -51,6 +54,8 @@ export class ProductsComponent implements OnInit {
       this.getFilterValuesFromLocalStorage();
     }
   }
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   filterForm: FormGroup = new FormGroup({
     id_input: new FormControl(''),
@@ -77,10 +82,12 @@ export class ProductsComponent implements OnInit {
     'updatedAt',
     'actions',
   ];
-  currentPageLimit: number = 2;
+  currentPageLimit: number = 5;
   currentPage: number = 1;
   pageLimitOptions: number[] = [2, 5, 10, 15, 20];
-  totalResults: number = 15;
+  totalResults: number = 0;
+  sortDirection: string = 'desc';
+  sortColumn: string = 'createdAt';
 
   localStorageVariables: any = {};
 
@@ -93,13 +100,14 @@ export class ProductsComponent implements OnInit {
     const filter = JSON.stringify({
       limit: this.currentPageLimit,
       offset: ((this.currentPage - 1) * this.currentPageLimit).toString(),
-      order: 'createdAt DESC',
+      order: this.createSort(),
       where: this.createWhereFilter(),
     });
 
     this.itemService.find({ filter }).subscribe({
       next: (serverData: any) => {
         this.cachedTableData.push(...serverData);
+
         this.itemsTableDataSource = new MatTableDataSource<any>(serverData);
         this.countItems();
       },
@@ -225,6 +233,14 @@ export class ProductsComponent implements OnInit {
     return where;
   }
 
+  createSort() {
+    if (this.sortDirection === '') {
+      return 'createdAt DESC';
+    } else {
+      return `${this.sortColumn} ${this.sortDirection}`;
+    }
+  }
+
   onFilterSubmit() {
     this.saveFilterValuesToLocalStorage();
     this.cachedTableData = [];
@@ -250,6 +266,18 @@ export class ProductsComponent implements OnInit {
     return;
   }
 
+  handleSortEvent(e: any) {
+    if (e.active === this.sortColumn) {
+      this.sortDirection = e.direction;
+      this.fetchItems();
+    } else if (e.active !== this.sortColumn) {
+      this.sortColumn = e.active;
+      this.sortDirection = e.direction.toUpperCase();
+      this.fetchItems();
+    }
+    return;
+  }
+
   private updateDataSource(): void {
     if (this.checkCachedData()) {
       const startIndex = (this.currentPage - 1) * this.currentPageLimit;
@@ -271,25 +299,71 @@ export class ProductsComponent implements OnInit {
     return false;
   }
 
+  exportToCsv() {
+    console.log("EXPORT TO CSV")
+    
+    const data = this.itemsTableDataSource.filteredData.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity
+      }
+    })
+
+    console.log("DATA: ", data)
+
+    var options = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true,
+      showTitle: true,
+      title: 'Products',
+      useBom: true,
+      noDownload: false,
+      headers: [
+        'id',
+        'name',
+        'quantity'
+      ],
+    };
+
+    new ngxCsv(data, 'admin_vision_products', options);
+  }
+
   openAddNewProduct(
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ) {
-    this.dialog.open(AddNewItemComponent, {
+    const dialogRef = this.dialog.open(AddNewItemComponent, {
       width: '300px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'success') {
+        this.fetchItems();
+      }
+    });
   }
 
   openEditProduct(
+    item: any,
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ) {
-    this.dialog.open(EditItemComponent, {
+    const dialogRef = this.dialog.open(EditItemComponent, {
       width: '300px',
+      data: item,
       enterAnimationDuration,
       exitAnimationDuration,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'success') {
+        this.fetchItems();
+      }
     });
   }
 
@@ -302,6 +376,7 @@ export class ProductsComponent implements OnInit {
       this.itemService.deleteById({ id }).subscribe({
         next: (response) => {
           console.log('DELETED? ', response);
+          this.fetchItems();
         },
         error: (error) => {
           console.error('ERROR: ', error);

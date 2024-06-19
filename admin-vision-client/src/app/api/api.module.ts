@@ -4,8 +4,10 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { AnalyticsControllerService } from './services/analytics-controller.service';
 import { ItemControllerService } from './services/item-controller.service';
 import { PingControllerService } from './services/ping-controller.service';
+import { NewsletterControllerService } from './services/newsletter-controller.service';
 import { TransactionControllerService } from './services/transaction-controller.service';
 import { UserControllerService } from './services/user-controller.service';
 
@@ -17,8 +19,10 @@ import { UserControllerService } from './services/user-controller.service';
   exports: [],
   declarations: [],
   providers: [
+    AnalyticsControllerService,
     ItemControllerService,
     PingControllerService,
+    NewsletterControllerService,
     TransactionControllerService,
     UserControllerService,
     ApiConfiguration

@@ -8,6 +8,7 @@ export { NewItem } from './models/new-item';
 export { NewTransaction } from './models/new-transaction';
 export { NewUser } from './models/new-user';
 export { PingResponse } from './models/ping-response';
+export { TrafficSources } from './models/traffic-sources';
 export { Transaction } from './models/transaction';
 export { TransactionItemWithRelations } from './models/transaction-item-with-relations';
 export { TransactionPartial } from './models/transaction-partial';
