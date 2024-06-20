@@ -17,6 +17,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    width: 98%
 }
 
 .row-container {
@@ -25,6 +26,7 @@
     width: 100%;
     justify-content: space-evenly;
     align-items: center;
+    padding: 5px;
 }
 
 .chart-container {
@@ -36,4 +38,8 @@
 
 .full-row-chart {
     margin: 5px;
+}
+
+.analytics-container {
+    padding: 10px;
 }

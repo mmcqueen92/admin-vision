@@ -399,8 +399,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
 
     const values = data.map((item: any) => item.count);
 
-
-    const backgroundColors = values.map(() => this.generateRandomColor());
+    const backgroundColors = this.generateDistinctColors(values.length, 100);
     const borderColors = backgroundColors.map(
       (color: string) => this.darkenColor(color, 20) // Darken by 20%
     );
@@ -476,7 +475,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
 
     const values = data.map((item: any) => item.count);
 
-    const backgroundColors = values.map(() => this.generateRandomColor());
+    const backgroundColors = this.generateDistinctColors(values.length, 100);
     const borderColors = backgroundColors.map(
       (color: string) => this.darkenColor(color, 20) // Darken by 20%
     );
@@ -613,10 +612,12 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
             this.monthlyRevenueByItemChart.destroy();
           }
 
+          const colors = this.generateDistinctColors(datasets.length, 10)
+
           const chartData = {
             labels: labels,
-            datasets: datasets.map((dataset: any) => {
-              const color = this.generateRandomColor();
+            datasets: datasets.map((dataset: any, index: number) => {
+              const color = colors[index]
               return {
                 ...dataset,
                 backgroundColor: color, // Example color
@@ -692,10 +693,12 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
             this.monthlyPerformanceByCategoryChart.destroy();
           }
 
+          const colors = this.generateDistinctColors(datasets.length, 100)
+
           const chartData = {
             labels: labels,
-            datasets: datasets.map((dataset: any) => {
-              const color = this.generateRandomColor();
+            datasets: datasets.map((dataset: any, index: number) => {
+              const color = colors[index]
               return {
                 ...dataset,
                 backgroundColor: color, // Example color
@@ -772,8 +775,9 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
             this.totalRevenueByCategoryChart.destroy();
           }
 
-          const backgroundColors = categories.map(() =>
-            this.generateRandomColor()
+          const backgroundColors = this.generateDistinctColors(
+            categories.length,
+            100
           );
           const borderColors = backgroundColors.map(
             (color: string) => this.darkenColor(color, 20) // Darken by 20%
@@ -816,8 +820,8 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
                   const chart = this.totalRevenueByCategoryChart;
                   chart.setDatasetVisibility(index, true);
                   chart.data.datasets[0].borderWidth =
-                    chart.data.datasets[0].borderWidth.map((bw: any, i: number) =>
-                      i === index ? 5 : 1
+                    chart.data.datasets[0].borderWidth.map(
+                      (bw: any, i: number) => (i === index ? 5 : 1)
                     );
                   chart.update();
                 },
@@ -930,6 +934,44 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
     const b = Math.floor(parseInt(rgb[2], 10) * (1 - percent / 100));
 
     return `rgb(${r}, ${g}, ${b})`;
+  }
+
+  rgbToComponents(rgb: any) {
+    const rgbArray = rgb
+      .substring(4, rgb.length - 1)
+      .replace(/ /g, '')
+      .split(',');
+    return rgbArray.map(Number);
+  }
+
+  colorDistance(color1: any, color2: any) {
+    const [r1, g1, b1] = this.rgbToComponents(color1);
+    const [r2, g2, b2] = this.rgbToComponents(color2);
+
+    // Euclidean distance
+    return Math.sqrt((r2 - r1) ** 2 + (g2 - g1) ** 2 + (b2 - b1) ** 2);
+  }
+
+  generateDistinctColors(numColors: number, minDistance: number) {
+    const colors = [];
+
+    while (colors.length < numColors) {
+      const newColor = this.generateRandomColor();
+      let tooClose = false;
+
+      for (const color of colors) {
+        if (this.colorDistance(newColor, color) < minDistance) {
+          tooClose = true;
+          break;
+        }
+      }
+
+      if (!tooClose) {
+        colors.push(newColor);
+      }
+    }
+
+    return colors;
   }
 
   onChartLegendHover(e: any, legendItem: any, legend: any) {

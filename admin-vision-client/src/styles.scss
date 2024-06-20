@@ -1,25 +1,72 @@
-/* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
 @include mat.core();
+
+$primary-palette: mat.define-palette(mat.$deep-purple-palette);
+$accent-palette: mat.define-palette(mat.$amber-palette);
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  // background-color: #ffffff;
+  // color: #000000;
+}
+
+/* Apply primary and accent colors */
+.primary-colour {
+  background-color: mat.get-color-from-palette(
+    $primary-palette,
+    600,
+    1
+  ) !important;
+}
+
+.accent-colour {
+  background-color: mat.get-color-from-palette(
+    $accent-palette,
+    600,
+    1
+  ) !important;
+}
 
 html,
 body {
   height: 100%;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
 
-$primary-palette: mat.define-palette(mat.$deep-purple-palette);
-$accent-palette: mat.define-palette(mat.$amber-palette);
+/* Define primary and accent palettes */
 
-.primary-colour {
-    background-color: mat.get-color-from-palette($primary-palette, 600, 1) !important
-}
+$theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $primary-palette,
+      accent: $accent-palette,
+      warn: mat.define-palette(mat.$deep-orange-palette),
+    ),
+  )
+);
 
-.accent-colour {
-    background-color: mat.get-color-from-palette($accent-palette, 600, 1) !important
+@include mat.all-component-themes($theme);
+
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $primary-palette,
+      accent: $accent-palette,
+      warn: mat.define-palette(mat.$deep-orange-palette),
+    ),
+  )
+);
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+  }
+
+  footer {
+    color: #ffffff !important;
+  }
+
+  @include mat.all-component-themes($dark-theme);
 }
-// $primary: mat-palette($mat-deep-purple);
-// $accent:  mat-palette($mat-amber, A200, A100, A400);

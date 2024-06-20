@@ -1,182 +1,194 @@
-<mat-tab-group (selectedTabChange)="onTabChange($event)" ngSkipHydration>
-  <mat-tab label="Sales / Revenue">
-    <ng-template matTabContent>
-      <div class="simple-stats">
-        <mat-card class="data-display accent-colour"
-          ><mat-card-content>
-            Total Transactions: {{ totalTransactions }}
-          </mat-card-content>
-        </mat-card>
-        <mat-card class="data-display accent-colour"
-          ><mat-card-content>
-            Transactions past 30 days: {{ transactionsPast30Days }}
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div class="monthly-sales-revenue-chart">
-        <canvas
-          id="monthly-sales-revenue-chart"
-          width="500"
-          height="300"
-        ></canvas>
-      </div>
-      <div class="row-container">
-        <div class="chart-container">
-          <div class="average-order-chart">
-            <canvas id="average-order-chart" width="500" height="300"></canvas>
+<div class="analytics-container">
+  <mat-tab-group (selectedTabChange)="onTabChange($event)" ngSkipHydration>
+    <mat-tab label="Sales / Revenue">
+      <ng-template matTabContent>
+        <div class="tab-container">
+          <div class="simple-stats">
+            <mat-card class="data-display accent-colour"
+              ><mat-card-content>
+                Total Transactions: {{ totalTransactions }}
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="data-display accent-colour"
+              ><mat-card-content>
+                Transactions past 30 days: {{ transactionsPast30Days }}
+              </mat-card-content>
+            </mat-card>
           </div>
-        </div>
-        <div class="chart-container">
-          <div class="conversion-rates-chart">
-            <canvas
-              id="conversion-rates-chart"
-              width="500"
-              height="300"
-            ></canvas>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="Customer Insights">
-    <!-- Content for Customer Insights tab -->
-    <ng-template matTabContent>
-      <div class="tab-container">
-        <div class="row-container">
           <mat-card class="chart-container">
-            <div class="new-users-chart">
-              <canvas id="new-users-chart" width="500" height="400"></canvas>
+            <div class="monthly-sales-revenue-chart">
+              <canvas
+                id="monthly-sales-revenue-chart"
+                width="500"
+                height="300"
+              ></canvas>
             </div>
           </mat-card>
+          <div class="row-container">
+            <mat-card class="chart-container">
+              <div class="average-order-chart">
+                <canvas
+                  id="average-order-chart"
+                  width="500"
+                  height="300"
+                ></canvas>
+              </div>
+            </mat-card>
+            <mat-card class="chart-container">
+              <div class="conversion-rates-chart">
+                <canvas
+                  id="conversion-rates-chart"
+                  width="500"
+                  height="300"
+                ></canvas>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Customer Insights">
+      <!-- Content for Customer Insights tab -->
+      <ng-template matTabContent>
+        <div class="tab-container">
+          <div class="row-container">
+            <mat-card class="chart-container">
+              <div class="new-users-chart">
+                <canvas id="new-users-chart" width="500" height="400"></canvas>
+              </div>
+            </mat-card>
 
-          <mat-card class="chart-container">
-            <div class="customer-retention-chart">
+            <mat-card class="chart-container">
+              <div class="customer-retention-chart">
+                <canvas
+                  id="customer-retention-chart"
+                  width="500"
+                  height="400"
+                ></canvas>
+              </div>
+            </mat-card>
+          </div>
+
+          <div class="row-container">
+            <mat-card class="chart-container">
+              <div class="customer-locations-chart">
+                <canvas
+                  id="customer-locations-chart"
+                  width="500"
+                  height="400"
+                ></canvas>
+              </div>
+            </mat-card>
+
+            <mat-card class="chart-container">
+              <div class="customer-genders-chart">
+                <canvas
+                  id="customer-genders-chart"
+                  width="500"
+                  height="400"
+                ></canvas>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Product Performance">
+      <!-- Content for Product Performance tab -->
+      <ng-template matTabContent>
+        <div class="tab-container">
+          <mat-card class="full-row-chart">
+            <div class="product-performance-by-category-chart">
               <canvas
-                id="customer-retention-chart"
+                id="product-performance-by-category-chart"
                 width="500"
                 height="400"
               ></canvas>
             </div>
           </mat-card>
-        </div>
 
-        <div class="row-container">
-          <mat-card class="chart-container">
-            <div class="customer-locations-chart">
+          <mat-card class="full-row-chart">
+            <div class="monthly-revenue-by-item-chart">
               <canvas
-                id="customer-locations-chart"
+                id="monthly-revenue-by-item-chart"
                 width="500"
                 height="400"
               ></canvas>
             </div>
           </mat-card>
 
-          <mat-card class="chart-container">
-            <div class="customer-genders-chart">
-              <canvas
-                id="customer-genders-chart"
-                width="500"
-                height="400"
-              ></canvas>
-            </div>
-          </mat-card>
-        </div>
-      </div>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="Product Performance">
-    <!-- Content for Product Performance tab -->
-    <ng-template matTabContent>
-      <div class="tab-container">
-        <mat-card class="full-row-chart">
-          <div class="product-performance-by-category-chart">
-            <canvas
-              id="product-performance-by-category-chart"
-              width="500"
-              height="400"
-            ></canvas>
+          <div class="row-container">
+            <mat-card class="chart-container">
+              <mat-table [dataSource]="itemsTableDataSource" matSort>
+                <ng-container matColumnDef="id">
+                  <mat-header-cell mat-sort-header *matHeaderCellDef
+                    >ID</mat-header-cell
+                  >
+                  <mat-cell *matCellDef="let element">{{
+                    element.id
+                  }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                  <mat-header-cell mat-sort-header *matHeaderCellDef
+                    >Name</mat-header-cell
+                  >
+                  <mat-cell *matCellDef="let element">{{
+                    element.name
+                  }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="totalRevenue">
+                  <mat-header-cell mat-sort-header *matHeaderCellDef
+                    >Revenue</mat-header-cell
+                  >
+                  <mat-cell *matCellDef="let element">{{
+                    element.totalRevenue
+                  }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="totalUnitsSold">
+                  <mat-header-cell mat-sort-header *matHeaderCellDef
+                    >Units Sold</mat-header-cell
+                  >
+                  <mat-cell *matCellDef="let element">{{
+                    element.totalUnitsSold
+                  }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                  <mat-header-cell mat-sort-header *matHeaderCellDef
+                    >Price</mat-header-cell
+                  >
+                  <mat-cell *matCellDef="let element">{{
+                    element.price
+                  }}</mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                  *matHeaderRowDef="itemsTableColumns"
+                ></mat-header-row>
+                <mat-row
+                  *matRowDef="let row; columns: itemsTableColumns"
+                ></mat-row>
+              </mat-table>
+              <mat-paginator
+                [pageSizeOptions]="tableLimitOptions"
+                showFirstLastButtons
+              ></mat-paginator>
+            </mat-card>
+            <mat-card class="chart-container">
+              <div class="total-revenue-by-category-chart">
+                <canvas
+                  id="total-revenue-by-category-chart"
+                  width="500"
+                  height="500"
+                ></canvas>
+              </div>
+            </mat-card>
           </div>
-        </mat-card>
-
-        <mat-card class="full-row-chart">
-          <div class="monthly-revenue-by-item-chart">
-            <canvas
-              id="monthly-revenue-by-item-chart"
-              width="500"
-              height="400"
-            ></canvas>
-          </div>
-        </mat-card>
-
-        <div class="row-container">
-          <mat-card class="chart-container">
-            <mat-table [dataSource]="itemsTableDataSource" matSort>
-              <ng-container matColumnDef="id">
-                <mat-header-cell mat-sort-header *matHeaderCellDef
-                  >ID</mat-header-cell
-                >
-                <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="name">
-                <mat-header-cell mat-sort-header *matHeaderCellDef
-                  >Name</mat-header-cell
-                >
-                <mat-cell *matCellDef="let element">{{
-                  element.name
-                }}</mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="totalRevenue">
-                <mat-header-cell mat-sort-header *matHeaderCellDef
-                  >Revenue</mat-header-cell
-                >
-                <mat-cell *matCellDef="let element">{{
-                  element.totalRevenue
-                }}</mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="totalUnitsSold">
-                <mat-header-cell mat-sort-header *matHeaderCellDef
-                  >Units Sold</mat-header-cell
-                >
-                <mat-cell *matCellDef="let element">{{
-                  element.totalUnitsSold
-                }}</mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="price">
-                <mat-header-cell mat-sort-header *matHeaderCellDef
-                  >Price</mat-header-cell
-                >
-                <mat-cell *matCellDef="let element">{{
-                  element.price
-                }}</mat-cell>
-              </ng-container>
-
-              <mat-header-row
-                *matHeaderRowDef="itemsTableColumns"
-              ></mat-header-row>
-              <mat-row
-                *matRowDef="let row; columns: itemsTableColumns"
-              ></mat-row>
-            </mat-table>
-            <mat-paginator
-              [pageSizeOptions]="tableLimitOptions"
-              showFirstLastButtons
-            ></mat-paginator>
-          </mat-card>
-          <mat-card class="chart-container">
-            <div class="total-revenue-by-category-chart">
-              <canvas
-                id="total-revenue-by-category-chart"
-                width="500"
-                height="500"
-              ></canvas>
-            </div>
-          </mat-card>
         </div>
-      </div>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

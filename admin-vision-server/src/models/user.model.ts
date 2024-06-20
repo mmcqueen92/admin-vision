@@ -73,7 +73,7 @@ export class User extends Entity {
   @property({
     type: 'string',
   })
-  country?: string;
+  province?: string;
   
   constructor(data?: Partial<User>) {
     super(data);
